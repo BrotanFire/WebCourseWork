@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+    {% block css_load %}
+        <link rel="stylesheet" href="{% static 'course_work_app/css/bootstrap.min.css' %}" >
+    {% endblock %}
+</head>
+<body class="">
+<header class="p-3 text-bg-dark">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+            <img src="{% static 'course_work_app/img/задача-50.png' %}" class="img-fluid-start">
+        </a>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        </ul>
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-light me-2">Login</button>
+          <a type="button" class="btn btn-secondary"  href="/register/">Sign-up</a>
+        </div>
+      </div>
+    </div>
+  </header>
+<div class="container-sm">
+    <h4 class="mb-3">Registration</h4>
+<form class="needs-validation" id="user_form" novalidate="" action="" method="post">
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">First name</label>
+              <input type="text" class="form-control" name="first_name" id="id_first_name" placeholder="" value="{{ first_name }}" required>
+              <div class="invalid-feedback">
+                Valid first name is required.
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Last name</label>
+              <input type="text" class="form-control" name="id_last_name" id="id_last_name" placeholder="" value="{{ first_name }}" required>
+              <div class="invalid-feedback">
+                Valid last name is required.
+              </div>
+            </div>
+
+
+            <div class="col-12">
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="id_username" name="username" placeholder="Username" value="{{ username }}" required>
+              <div class="invalid-feedback">
+                  Your username is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="id_email" name="email" placeholder="you@example.com" value="{{ email }}" required>
+              <div class="invalid-feedback">
+                Please enter a valid email
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="id_password" name="password" value="{{ password }}" required>
+              <div class="invalid-feedback">
+                Invalid password
+              </div>
+            </div>
+          <hr class="my-4">
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Register</button>
+        </form>
+    </div>
+</body>
+<script src="{% static 'course_work_app/js/popper.min.js' %}"></script>
+<script src="{% static 'course_work_app/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'course_work_app/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'course_work_app/js/RegistrationValidation.js' %}"></script>
+</html>
