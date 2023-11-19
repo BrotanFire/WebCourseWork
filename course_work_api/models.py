@@ -9,6 +9,7 @@ from django.db import models
 
 
 class Subtasks(models.Model):
+    db = 'task_database'
     subtask_id = models.IntegerField(primary_key=True)
     task = models.ForeignKey('Tasks', models.DO_NOTHING, blank=True, null=True)
     sign_readiness = models.DecimalField(max_digits=3, decimal_places=0)
@@ -22,6 +23,7 @@ class Subtasks(models.Model):
 
 
 class Tasks(models.Model):
+    db = 'task_database'
     task_id = models.IntegerField(primary_key=True)
     task_name = models.CharField(max_length=30, blank=True, null=True)
     task_description = models.CharField(max_length=100, blank=True, null=True)
