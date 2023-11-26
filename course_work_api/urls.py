@@ -3,5 +3,8 @@ from .views import *
 
 urlpatterns = [
     path('usertasks/<int:user_id>', UserTasks.as_view()),
-    path('task')
+    path('usersubtasks/<int:task>, UserSubTask.as_view()'),
+    path('usertask/<int:task>,UserTask.as_view()'),
+    path('createtask/<int:>',),
+    path('createsubtask')
 ]
