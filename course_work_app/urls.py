@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.template.defaulttags import url
 from django.urls import path
+
+from . import views
 from .views import *
 
 urlpatterns = [
-    path('', MainView.as_view()),
+    path('', StartPage.as_view(),name='home'),
     path(r'register/', register, name='register'),
+    path(r'auth/', views.sign_in, name='auth'),
 ]

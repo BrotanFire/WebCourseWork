@@ -5,14 +5,19 @@ from django.contrib.auth.models import User
 
 from .models import *
 
+from django import forms
 
-class AuthUserForm(AuthenticationForm, forms.ModelForm):
-    class Meta:
-        model = AuthUser
-        fields = ('username', 'password')
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=65)
+    password = forms.CharField(max_length=65, widget=forms.PasswordInput)
 
 
 class UserRegistrationForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password')
+        fields = ('username',
+                  'first_name',
+                  'last_name',
+                  'email',
+                  'password')

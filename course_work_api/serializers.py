@@ -17,12 +17,11 @@ class SubTasksSer(serializers.ModelSerializer):
 
 class UserTaskSer(serializers.ModelSerializer):
     class Meta:
-        model = Subtasks
+        model = Tasks
         fields = '__all__'
 
 
-class CreateUserTaskSer(serializers.ModelSerializer):
+class UsersTasksSer(serializers.ModelSerializer):
     class Meta:
-        model = Tasks
-        fields = (
-        'task_id', 'task_name', 'task_description', 'task_start_date', 'task_end_date', 'task_completing_date')
+        model = UsersTasks
+        fields = '__all__'
