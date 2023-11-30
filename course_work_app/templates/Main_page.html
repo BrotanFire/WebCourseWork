@@ -6,10 +6,11 @@
     {% load static %}
     {% block css_load %}
         <link rel="stylesheet" href="{% static 'course_work_app/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'course_work_app/css/bootstrap-icons.css' %}">
     {% endblock %}
 
 </head>
-<body>
+<body onload="{% block onload %}{% endblock %}">
 <header class="p-3 text-bg-dark">
     <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -18,12 +19,15 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 text-secondary">Домой</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Подробнее</a></li>
+                {% block menubtn %}
+                <li><a href="{% url 'work-page' %}" class="nav-link px-2 text-secondary">Домой</a></li>
+                <li><a href="" class="nav-link px-2 text-white">Подробнее</a></li>
+                {% endblock %}
             </ul>
             <div class="text-end">
-                <a type="button" class="btn btn-outline-light me-2" href="auth">Вход</a>
-                <a type="button" class="btn btn-secondary" href="register">Регистрация</a>
+                {% block accountbtn %}
+
+                {% endblock %}
             </div>
         </div>
     </div>

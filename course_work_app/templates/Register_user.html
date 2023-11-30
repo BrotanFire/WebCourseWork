@@ -18,8 +18,7 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             </ul>
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <a type="button" class="btn btn-secondary" href="/register/">Sign-up</a>
+                <a type="button" class="btn btn-outline-light me-2" href="auth">Выход</a>
             </div>
         </div>
     </div>
@@ -29,8 +28,8 @@
     <form class="needs-validation" id="user_form" novalidate="" action="" method="post">
         <div class="row g-3">
             <div class="col-sm-6">
-                <label for="firstName" class="form-label">First name</label>
-                <input type="text" class="form-control" name="first_name" id="id_first_name" placeholder=""
+                <label for="firstName" class="form-label">Имя </label>
+                <input type="text" class="form-control" aria-label="First name" name="first_name" id="id_first_name" placeholder=""
                        value="{{ first_name }}" required>
                 <div class="invalid-feedback">
                     Valid first name is required.
@@ -38,9 +37,9 @@
             </div>
 
             <div class="col-sm-6">
-                <label for="lastName" class="form-label">Last name</label>
-                <input type="text" class="form-control" name="id_last_name" id="id_last_name" placeholder=""
-                       value="{{ first_name }}" required>
+                <label for="lastName" class="form-label">Фамилия</label>
+                <input type="text" class="form-control" aria-label="Last name" name="id_last_name" id="id_last_name" placeholder=""
+                       value="{{ last_name }}" required>
                 <div class="invalid-feedback">
                     Valid last name is required.
                 </div>
@@ -48,7 +47,7 @@
 
 
             <div class="col-12">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label">Логин</label>
                 <div class="input-group has-validation">
                     <span class="input-group-text">@</span>
                     <input type="text" class="form-control" id="id_username" name="username" placeholder="Username"
@@ -69,7 +68,7 @@
             </div>
 
             <div class="col-12">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">Пароль</label>
                 <input type="password" class="form-control" id="id_password" name="password" value="{{ password }}"
                        required>
                 <div class="invalid-feedback">

@@ -22,7 +22,9 @@ from . import views
 from .views import *
 
 urlpatterns = [
-    path('', StartPage.as_view(),name='home'),
+    path('', StartPage.as_view(), name='home'),
     path(r'register/', register, name='register'),
     path(r'auth/', views.sign_in, name='auth'),
+    path(r'logout/', views.sign_out, name='logout'),
+    path(r'work-page/', views.WorkPage, name='work-page')
 ]

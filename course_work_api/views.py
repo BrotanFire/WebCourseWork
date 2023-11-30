@@ -8,10 +8,12 @@ from .models import *
 from .serializers import TasksSer, SubTasksSer, UserTaskSer, UsersTasksSer
 
 
-class UserTasks(LoginRequiredMixin, RetrieveAPIView):
-    lookup_field = 'user_id'
-    queryset = UsersTasks.objects.using('task_database').all()
+class UserTasks(LoginRequiredMixin, ListAPIView):
     serializer_class = TasksSer
+
+    def get_queryset(self):
+        queryset = UsersTasks.objects.using('task_database').all().filter(user_id=self.request.user.id)
+        return queryset
 
 
 class UserSubTask(LoginRequiredMixin, RetrieveAPIView):

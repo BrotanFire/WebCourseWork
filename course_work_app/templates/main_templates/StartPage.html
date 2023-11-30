@@ -2,6 +2,10 @@
 <html lang="en">
 {% extends "Main_page.html" %}
 {% block Title %}Welcome!{% endblock %}
+{% block accountbtn %}
+                <a type="button" class="btn btn-outline-light me-2" href="auth">Вход</a>
+                <a type="button" class="btn btn-secondary" href="register">Регистрация</a>
+{% endblock %}
 {% block content %}
     {% load static %}
     <section class="py-5 text-center container">
