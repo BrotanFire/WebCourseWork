@@ -1,0 +1,26 @@
+<html lang="en">
+{% extends "Main_page.html" %}
+{% block Title %}Welcome {{ request.user.username }}!{% endblock %}
+{% block accountbtn %}
+    <div class="container">
+    <div class="row">
+        <div class="col">
+            <p class="h6">{{ request.user.first_name }} {{ request.user.last_name }}</p>
+        </div>
+        <div class="col">
+            <a type="button" class="btn btn-outline-light me-2" href="/logout">Выход</a>
+        </div>
+    </div>
+{% endblock %}
+{% block onload %}
+    ShowTasks()
+{% endblock %}
+{% block content %}
+    {% load static %}
+
+{% endblock %}
+{% block load_js %}
+    <script src="{% static 'course_work_app/js/customjsadd.js' %}"></script>
+{% endblock %}
+{% block modalblock %}
+{% endblock %}

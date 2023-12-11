@@ -16,15 +16,18 @@ class UserTasks(LoginRequiredMixin, ListAPIView):
         return queryset
 
 
-class UserSubTask(LoginRequiredMixin, RetrieveAPIView):
-    lookup_field = 'task'
-    queryset = Subtasks.objects.all()
+class UserSubTask(LoginRequiredMixin, ListAPIView):
     serializer_class = SubTasksSer
+
+    def get_queryset(self):
+        queryset = Subtasks.objects.using('task_database').all().filter(task_id=self.kwargs.get('task_id'))
+        return queryset
 
 
 class UserTask(LoginRequiredMixin, RetrieveAPIView):
     queryset = Tasks.objects.all()
     serializer_class = UserTaskSer
+    lookup_field = 'task_id'
 
 
 class CreateUsersTasks(LoginRequiredMixin, ListCreateAPIView):
@@ -37,6 +40,12 @@ class CreateUsersTasks(LoginRequiredMixin, ListCreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class LeaveTask(LoginRequiredMixin, DestroyAPIView):
+    queryset = UsersTasks.objects.all()
+    serializer_class = UsersTasksSer
+    lookup_field = 'users_tasks_id'
 
 
 class CreateTask(LoginRequiredMixin, CreateAPIView):

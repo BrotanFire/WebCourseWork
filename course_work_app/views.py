@@ -21,10 +21,16 @@ class StartPage(TemplateView):
         return render(request, self.template_name)
 
 
+def AddPage(request):
+    if request.user.is_anonymous:
+        return redirect("/auth")
+    return render(request, "main_templates/AddTask.html", {'username': request.user.username})
+
+
 def WorkPage(request):
     if request.user.is_anonymous:
         return redirect("/auth")
-    return render(request, "main_templates/WorkPage.html", {'username' : request.user.username})
+    return render(request, "main_templates/WorkPage.html", {'username': request.user.username})
 
 
 class RegisterUser(TemplateView):

@@ -26,5 +26,6 @@ urlpatterns = [
     path(r'register/', register, name='register'),
     path(r'auth/', views.sign_in, name='auth'),
     path(r'logout/', views.sign_out, name='logout'),
-    path(r'work-page/', views.WorkPage, name='work-page')
+    path(r'work-page/', views.WorkPage, name='work-page'),
+    path(r'add-task-page/', views.AddPage, name='add-task-page')
 ]

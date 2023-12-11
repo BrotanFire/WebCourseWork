@@ -19,7 +19,7 @@ class Subtasks(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'subtasks'
+        db_table = '"work_schema"."subtasks"'
 
 
 class Tasks(models.Model):
@@ -33,7 +33,7 @@ class Tasks(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'tasks'
+        db_table = '"work_schema"."tasks"'
 
 
 class UsersTasks(models.Model):
@@ -44,4 +44,4 @@ class UsersTasks(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'users_tasks'
+        db_table = '"work_schema"."users_tasks"'

@@ -13,36 +13,59 @@
     </div>
 {% endblock %}
 {% block onload %}
-ShowTasks()
+    ShowTasks()
 {% endblock %}
 {% block content %}
     {% load static %}
-    <div class="album py-5 bg-body-tertiary">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3" id="TaskPanelStart">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-auto  sticky-top">
+                <div class="d-flex flex-sm-column flex-row flex-nowrap align-items-center sticky-top">
+                    <a href="{% url 'add-task-page' %}" class="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip"
+                       data-bs-placement="right" data-bs-original-title="Icon-only">
+                        <i class="bi-file-plus" style="font-size: 4rem"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col h-100 w-100">
+                <div class="album p-3">
+                    <div class="container">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3" id="TaskPanelStart">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    </div>
+
 {% endblock %}
 {% block load_js %}
-<script src="{% static 'course_work_app/js/customjs.js' %}"></script>
+    <script src="{% static 'course_work_app/js/customjs.js' %}"></script>
 {% endblock %}
 {% block modalblock %}
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="ModalAboutBody">
+                    <div class="card">
+                        <div class="card-header">
+                            Подзадачи
+                        </div>
+                        <ul class="list-group list-group-flush" id="subtasks">
+                            <li class="list-group-item">An item</li>
+                            <li class="list-group-item">A second item</li>
+                            <li class="list-group-item">A third item</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer" id="footermodal">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 {% endblock %}
