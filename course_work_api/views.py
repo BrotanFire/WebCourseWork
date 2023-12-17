@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from rest_framework import status
 from rest_framework.generics import *
 from rest_framework.response import Response
@@ -57,7 +58,7 @@ class CreateTask(LoginRequiredMixin, CreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return render(request, "main_templates/AddTask.html", {'username': request.user.username},status=status.HTTP_201_CREATED)
 
 
 class CreateSubTasks(LoginRequiredMixin, ListCreateAPIView):

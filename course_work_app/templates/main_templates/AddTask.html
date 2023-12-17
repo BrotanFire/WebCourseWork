@@ -13,14 +13,56 @@
     </div>
 {% endblock %}
 {% block onload %}
-    ShowTasks()
 {% endblock %}
 {% block content %}
     {% load static %}
-
+    <div class="tab-pane active" id="post-object-form">
+        <form action="/api/createtask/" method="POST" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
+            <fieldset>
+                <div class="form-group justify-content-center">
+                    <label class="col-sm-2 control-label">
+                        Название задачи
+                    </label>
+                    <div class="col">
+                        <input name="task_name" class="form-control" type="text" value="" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label ">
+                        Описание задачи
+                    </label>
+                    <div class="col">
+                        <textarea name="task_description" class="form-control" type="text" value=""></textarea>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label ">
+                        Дата старта задачи
+                    </label>
+                    <div class="col">
+                        <input name="task_start_date" class="form-control" type="datetime-local" value="">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <label class="col-sm-2 control-label ">
+                        Дата завершения задачи
+                    </label>
+                    <div class="col">
+                        <input name="task_end_date" class="form-control" type="datetime-local" value="">
+                    </div>
+                </div>
+                <hr>
+                <div class="form-actions">
+                    <button class="btn btn-primary js-tooltip" title=""
+                            data-original-title="Make a POST request on the Create Task resource"> Создать
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 {% endblock %}
 {% block load_js %}
-    <script src="{% static 'course_work_app/js/customjsadd.js' %}"></script>
+    <script src="{% static 'course_work_app/js/addpagescript.js' %}"></script>
 {% endblock %}
 {% block modalblock %}
 {% endblock %}

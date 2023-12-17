@@ -1,4 +1,4 @@
-const adressserver = 'http://127.0.0.1:8000'
+const adressserver = 'http://192.168.31.88'
 const dateoptions = {
     year: 'numeric',
     month: 'long',
