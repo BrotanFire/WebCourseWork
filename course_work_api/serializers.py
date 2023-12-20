@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.serializers import Serializer
+
 from .models import *
 
 
@@ -19,6 +21,14 @@ class UserTaskSer(serializers.ModelSerializer):
     class Meta:
         model = Tasks
         fields = '__all__'
+
+
+class UserSer(Serializer):
+    id = serializers.IntegerField()
+    username = serializers.CharField(max_length=256)
+
+    class Meta:
+        read_only = 'true'
 
 
 class UsersTasksSer(serializers.ModelSerializer):

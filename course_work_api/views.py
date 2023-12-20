@@ -5,8 +5,9 @@ from rest_framework import status
 from rest_framework.generics import *
 from rest_framework.response import Response
 
+from course_work_app.models import AuthUser
 from .models import *
-from .serializers import TasksSer, SubTasksSer, UserTaskSer, UsersTasksSer
+from .serializers import TasksSer, SubTasksSer, UserTaskSer, UsersTasksSer, UserSer
 
 
 class UserTasks(LoginRequiredMixin, ListAPIView):
@@ -22,6 +23,18 @@ class UserSubTask(LoginRequiredMixin, ListAPIView):
 
     def get_queryset(self):
         queryset = Subtasks.objects.using('task_database').all().filter(task_id=self.kwargs.get('task_id'))
+        return queryset
+
+
+class ShowUsers(ListAPIView):
+    serializer_class = UserSer
+
+    def get_queryset(self):
+        queryset = AuthUser.objects.values(
+            'id',
+            'username'
+        )
+        print(queryset.query)
         return queryset
 
 
@@ -58,7 +71,7 @@ class CreateTask(LoginRequiredMixin, CreateAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        return render(request, "main_templates/AddTask.html", {'username': request.user.username},status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class CreateSubTasks(LoginRequiredMixin, ListCreateAPIView):
@@ -71,3 +84,9 @@ class CreateSubTasks(LoginRequiredMixin, ListCreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+
+class AppointTask(CreateAPIView):
+    queryset = UsersTasks.objects.all()
+    serializer_class = UsersTasksSer
+

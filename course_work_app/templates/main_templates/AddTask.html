@@ -13,56 +13,76 @@
     </div>
 {% endblock %}
 {% block onload %}
+    SetTime()
 {% endblock %}
 {% block content %}
     {% load static %}
-    <div class="tab-pane active" id="post-object-form">
-        <form action="/api/createtask/" method="POST" enctype="multipart/form-data" class="form-horizontal"> {% csrf_token %}
-            <fieldset>
-                <div class="form-group justify-content-center">
-                    <label class="col-sm-2 control-label">
-                        Название задачи
-                    </label>
-                    <div class="col">
-                        <input name="task_name" class="form-control" type="text" value="" required>
-                    </div>
+    <div class="tab-pane">
+        <form class="form-horizontal" onsubmit="SendFormTask()" id="form1">
+            <div class="form-group justify-content-center">
+                <label class="col-sm-2 control-label">
+                    Название задачи
+                </label>
+                <div class="col">
+                    <input name="task_name" id="task_name" class="form-control" type="text" value="" required>
                 </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label ">
-                        Описание задачи
-                    </label>
-                    <div class="col">
-                        <textarea name="task_description" class="form-control" type="text" value=""></textarea>
-                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label ">
+                    Описание задачи
+                </label>
+                <div class="col">
+                    <textarea name="task_description" id="task_description" class="form-control" type="text" value=""
+                              required></textarea>
                 </div>
-                <div class="form-group ">
-                    <label class="col-sm-2 control-label ">
-                        Дата старта задачи
-                    </label>
-                    <div class="col">
-                        <input name="task_start_date" class="form-control" type="datetime-local" value="">
-                    </div>
+            </div>
+            <div class="form-group ">
+                <label class="col-sm-2 control-label ">
+                    Дата старта задачи
+                </label>
+                <div class="col">
+                    <input name="task_start_date" id="task_start_date" class="form-control" type="datetime-local"
+                           value="" required>
                 </div>
-                <div class="form-group ">
-                    <label class="col-sm-2 control-label ">
-                        Дата завершения задачи
-                    </label>
-                    <div class="col">
-                        <input name="task_end_date" class="form-control" type="datetime-local" value="">
-                    </div>
+            </div>
+            <div class="form-group ">
+                <label class="col-sm-2 control-label ">
+                    Дата завершения задачи
+                </label>
+                <div class="col">
+                    <input name="task_end_date" class="form-control" id="task_end_date" type="datetime-local" value=""
+                           required>
                 </div>
-                <hr>
-                <div class="form-actions">
-                    <button class="btn btn-primary js-tooltip" title=""
-                            data-original-title="Make a POST request on the Create Task resource"> Создать
-                    </button>
-                </div>
-            </fieldset>
+            </div>
+            <hr>
+            <div>
+                <button class="btn btn-primary" title="" onclick=""> Создать
+                </button>
+            </div>
         </form>
-    </div>
 {% endblock %}
 {% block load_js %}
     <script src="{% static 'course_work_app/js/addpagescript.js' %}"></script>
 {% endblock %}
 {% block modalblock %}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Заголовок модального окна</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="list-group" id="UserList">
+
+                    </ul>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" id="SaveUsers" data-bs-dismiss="modal">Сохранить изменения</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
