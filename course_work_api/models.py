@@ -12,7 +12,7 @@ class Subtasks(models.Model):
     database = 'task_database'
     subtask_id = models.AutoField(primary_key=True)
     task = models.ForeignKey('Tasks', models.DO_NOTHING, blank=True, null=True)
-    sign_readiness = models.DecimalField(max_digits=3, decimal_places=0)
+    sign_readiness = models.DecimalField(max_digits=3, decimal_places=0,blank=True, null=True)
     subtask_name = models.CharField(max_length=30, blank=True, null=True)
     subtask_description = models.CharField(max_length=100, blank=True, null=True)
     subtask_completing_date = models.DateTimeField(blank=True, null=True)

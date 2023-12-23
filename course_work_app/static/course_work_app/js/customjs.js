@@ -61,7 +61,7 @@ async function ShowTasks() {
 }
 
 
-async function ShowMoreAboutTask(TaskId, UserTaskId) {
+async function ShowMoreAboutTask(TaskId, UsersTaskId) {
     let SubTaskPanel = document.getElementById('subtasks')
     let Response = await fetch(adressserver + '/api/usersubtasks/' + TaskId, {
         method: 'GET',
@@ -74,7 +74,6 @@ async function ShowMoreAboutTask(TaskId, UserTaskId) {
 
     SubTaskPanel.innerHTML = ''
     let SubTaskData = await Response.json()
-    console.log(SubTaskData)
     for (let i in SubTaskData) {
         if (SubTaskData[i].subtask_completing_date == null) {
             let TaskBlock = '<li class="list-group-item"><h5>' + SubTaskData[i].subtask_name + '</h5> ' + SubTaskData[i].subtask_description + '</li>'
@@ -85,11 +84,11 @@ async function ShowMoreAboutTask(TaskId, UserTaskId) {
         }
 
     }
-    let SubTaskAddBtn = '<button class="bi-plus btn btn-outline-secondary"  type="button" onclick=""></button>'
+    let SubTaskAddBtn = '<button class="bi-plus btn btn-outline-secondary" id="AddSubTaskBtn" type="button" onclick="AddSubTask(' + String(TaskId) + ',' + String(UsersTaskId) + ')"></button>'
     SubTaskPanel.innerHTML += SubTaskAddBtn
     let footer = document.getElementById('footermodal')
     footer.innerHTML = ''
-    footer.innerHTML = '<button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="LeaveTask(' + String(UserTaskId) + ')">Покинуть задачу</button>' +
+    footer.innerHTML = '<button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="LeaveTask(' + String(UsersTaskId) + ')">Покинуть задачу</button>' +
         '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>'
 }
 
@@ -108,4 +107,80 @@ async function LeaveTask(TaskId) {
     } else {
 
     }
+}
+
+async function AddSubTask(TaskId, UsersTaskId) {
+    let btn = document.getElementById('AddSubTaskBtn')
+    btn.remove()
+    let SubTaskPanel = document.getElementById('subtasks')
+    let addpanel = '<li class="list-group-item"> \n' +
+        '<form action="" method="POST" enctype="multipart/form-data" onsubmit="return false" class="form-horizontal">\n' +
+        '    <fieldset>\n' +
+        '        <input type="hidden" name="csrfmiddlewaretoken"\n' +
+        '               value="' + getCookie("csrftoken") + '">\n' +
+        '        <div class="form-group ">\n' +
+        '            <label class="col-sm-6 control-label ">\n' +
+        '                Имя подзадачи\n' +
+        '            </label>\n' +
+        '            <div class="col-sm-12">\n' +
+        '                <input name="subtask_name" id="subtask_name" class="form-control" type="text" value="" required>\n' +
+        '            </div>\n' +
+        '        </div>\n' +
+        '        <div class="form-group ">\n' +
+        '            <label class="col-sm-6 control-label ">\n' +
+        '                Описание\n' +
+        '            </label>\n' +
+        '            <div class="col-sm-12">\n' +
+        '                <input name="subtask_description" id="subtask_description" class="form-control" type="text" value="" required>\n' +
+        '            </div>\n' +
+        '        </div>\n' +
+        '        <div class="form-group ">\n' +
+        '            <label class="col-sm-6 control-label ">\n' +
+        '                Дата выполнения\n' +
+        '            </label>\n' +
+        '            <div class="col-sm-12">\n' +
+        '                <input name="subtask_completing_date" id="subtask_completing_date" class="form-control" type="datetime-local" value="" required>\n' +
+        '            </div>\n' +
+        '        </div>\n' +
+        '        <div class="form-group">\n' +
+        '            <label class="col-sm-6 control-label ">\n' +
+        '                \n' +
+        '            </label>\n' +
+        '            <div class="col-sm-12">\n' +
+        '                <input type="hidden" class="form-control"  value="' + String(TaskId) + '" name="task">\n' +
+        '            </div>\n' +
+        '        </div>\n' +
+        '      <hr>  \n' +
+        '        <div class="form-actions">\n' +
+        '            <button class="btn btn-primary js-tooltip" onclick="SendSubTask(' + TaskId + ', ' + UsersTaskId + ')" title=""\n' +
+        '                    data-original-title="Make a POST request on the Create Sub Tasks resource">Добавить\n' +
+        '            </button>\n' +
+        '        </div>\n' +
+        '    </fieldset>\n' +
+        '</form>\n' +
+        '</li>'
+    SubTaskPanel.innerHTML += addpanel
+}
+
+async function SendSubTask(TaskId, UsersTaskId) {
+    let Response = await fetch(adressserver + '/api/createsubtask/', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            'cookie': document.cookie,
+            "X-CSRFToken": getCookie("csrftoken")
+        },
+        body: JSON.stringify(
+            {
+                "sign_readiness": null,
+                "subtask_name": document.getElementById('subtask_name').value,
+                "subtask_description": document.getElementById('subtask_description').value,
+                "subtask_completing_date": document.getElementById('subtask_completing_date').value,
+                "task": TaskId
+            }
+        ),
+        mode: 'same-origin'
+    })
+    let ResponseData = await Response.json()
+     await ShowMoreAboutTask(TaskId, UsersTaskId)
 }
